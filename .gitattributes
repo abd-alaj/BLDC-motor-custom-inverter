@@ -1,0 +1,10 @@
+*.slx binary
+*.mat binary
+*.p binary
+*.mex* binary
+
+*.kicad_pcb binary
+*.kicad_sch binary
+*.kicad_prl binary
+*.kicad_sym binary
+*.pretty/   binary

@@ -1,7 +1,16 @@
 octave-workspace
-slprj
+
+slprj/
 *.slx.autosave
 *.slxc
 *.mat
+*.mldatx
 *.asv
+*_ert_rtw/
+*_grt_rtw/
 
+*.kicad_prl
+*-backups/
+*.lck
+fp-info-cache
+python_scripts/
