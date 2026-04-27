@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Info description="A custom inverter implementation for a simple BLDC motor, implementing both trapezoidal and FOC control. "/>
