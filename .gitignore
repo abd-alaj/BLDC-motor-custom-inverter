@@ -1,5 +1,18 @@
+# generic
+*~
+*-backups/
+_autosave-*
+*.bak 
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+
+# Octave
 octave-workspace
 
+# MATLAB/Simulink 
 slprj/
 *.slx.autosave
 *.slxc
@@ -9,11 +22,22 @@ slprj/
 *_ert_rtw/
 *_grt_rtw/
 
+
+# KiCad
 *.kicad_prl
-*-backups/
+*.kicad_*-bak
+fp-info-cache
 *.lck
+[Gg]erber/
+[Pp]lots/
+[Bb]uild/
+*.{erc,drc,rpt}
 fp-info-cache
 python_scripts/
+*-save.kicad_sym
+**/*.pretty/*.bak
 
-.DS_Store
-Thumbs.db
+# LTSPICE
+*.{raw,fft,log,plt,net}
+*.op.raw
+*.tmp
