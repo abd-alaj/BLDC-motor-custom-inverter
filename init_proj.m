@@ -39,8 +39,10 @@ if exist('parameters.m', 'file')
     run('parameters.m');
 end
 
-if exist('filter_lib.slx', 'file')
-    load_system('filter_lib');
+if exist('inverter_library.slx', 'file')
+    load_system('inverter_library');
 else
-    warning('filter_lib.slx not found on path, simulation may not run!')
+    warning('inverter_library.slx not found on path, simulation may not run!')
 end
+
+disp('project initialized succesfully.')

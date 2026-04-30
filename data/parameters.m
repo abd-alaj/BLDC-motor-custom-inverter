@@ -8,7 +8,15 @@ R_phi = 6.34;
 L_phi = 1.08e-3;
 Kt = 0.08;
 kn = 117; 
-J_intert = 56e-7;
+
+% Derived parameters
+Rs = R_phi / 2; 
+Ld = L_phi / 2; 
+Lq = Ld;
+lambda = Kt / (1.5 * P);
+B = 0;                          % not on datasheet, assume ideal until BLDC is modelled
+J = 5.6e-7;
+
 
 % switch this out with actual experimentally determined K_e once BLDC motor is properly sourced
 K_e = (1 / kn) * (2 * pi / 60); 
@@ -17,6 +25,7 @@ K_e = (1 / kn) * (2 * pi / 60);
 V_nom = 12;
 I_max = 1.9; 
 I_nom = 1.1; 
+T_nom = 0.09;
 T_stall = 0.15; 
 max_rpm = 1610; 
 
