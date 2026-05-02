@@ -411,6 +411,26 @@
     [
       "d9c88e17-fe5c-42cc-b67f-59b96e52b07c",
       "Root"
+    ],
+    [
+      "b1c03901-3e17-4bfd-9ba2-4f441b85b035",
+      "power_supply"
+    ],
+    [
+      "c9c872ab-c1f8-43f5-827e-7ceadd7b47f1",
+      "gate_drive"
+    ],
+    [
+      "84c3e85d-8b5b-472b-911a-4f0ab9d2c402",
+      "power_stage"
+    ],
+    [
+      "8688b9d1-3a9a-4589-8634-bf040a9a5f20",
+      "Protection"
+    ],
+    [
+      "c09754ef-7267-48bf-90f9-cd12961fab79",
+      "Controller"
     ]
   ],
   "text_variables": {}

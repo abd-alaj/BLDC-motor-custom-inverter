@@ -14,7 +14,7 @@ Rs = R_phi / 2;
 Ld = L_phi / 2; 
 Lq = Ld;
 lambda = Kt / (1.5 * P);
-B = 0;                          % not on datasheet, assume ideal until BLDC is modelled
+B = 0.001;                          % not on datasheet, assume for simulation until BLDC is modelled
 J = 5.6e-7;
 
 
@@ -31,11 +31,10 @@ max_rpm = 1610;
 
 % chosen parameters
 Vdc = 12;
-f_sw = 30e3;
+f_sw = 20e3;
 T_s = 1 / f_sw;
 V_dc = 12; 
 
-lambda = Kt / (1.5 * P);
 
 % controller parameters
 target_speed = 400;
