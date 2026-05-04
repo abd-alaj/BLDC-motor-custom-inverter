@@ -37,12 +37,22 @@ Simulink.fileGenControl('set', 'CacheFolder', workDir, 'CodeGenFolder', workDir,
 
 if exist('parameters.m', 'file')
     run('parameters.m');
+    disp('parameters loaded succesfully.')
+else
+    warning('parameters.m file not found. variables in simulink will not load!');
 end
 
 if exist('inverter_library.slx', 'file')
     load_system('inverter_library');
 else
-    warning('inverter_library.slx not found on path, simulation may not run!')
+    warning('inverter_library.slx not found on path, simulation may not run!');
+end
+
+if exist('PI_tuner_starting_values.m', 'file')
+    run('PI_tuner_starting_values');
+    disp('PI controller constants loaded succesfully.');
+else
+    warning('PI controller constant file could not be found, PI controllers will have invalid constants!');
 end
 
 disp('project initialized succesfully.')
