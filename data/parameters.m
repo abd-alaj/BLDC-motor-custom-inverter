@@ -30,7 +30,7 @@ T_stall = 0.15;
 max_rpm = 1610; 
 
 % chosen parameters
-Vdc = 12;
+Vdc = 24;
 f_sw = 20e3;
 T_s = 1 / f_sw;
 V_dc = 12; 

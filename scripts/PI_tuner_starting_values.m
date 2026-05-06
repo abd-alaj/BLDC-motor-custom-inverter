@@ -24,19 +24,20 @@ K_id = Rs / tau_c;
 
 %% SPEED CONTROL
 
-omega_speed_target = omega_c / 10; 
+K_ps = 1.094365863826970e-04;
+K_is = 1.530437895709333;
 
-s = tf('s');
-G_plant = 1 / (J * s + B);
+% used for tuning the above values
+% omega_speed_target = omega_c / 10; 
 
-[C_speed, info] = pidtune(G_plant, 'PI', omega_speed_target);
+% s = tf('s');
+% G_plant = 1 / (J * s + B);
 
-pidTuner(G_plant, C_speed);
+% [C_speed, info] = pidtune(G_plant, 'PI', omega_speed_target);
+
+% pidTuner(G_plant, C_speed);
 
 % K_ps = C_speed.Kp;
 % K_is = C_speed.Ki;
 
 % values retrieved from PIDTuner app
-K_ps = 1.094365863826970e-04;
-K_is = 1.530437895709333;
-
