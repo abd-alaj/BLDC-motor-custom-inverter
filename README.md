@@ -25,6 +25,6 @@ You will see the following structure (with changes if i have forgotten to update
 ```
 git clone https://github.com/abd-alaj/BLDC-motor-custom-inverter.git
 ```
-2. run the `init_proj.m` script in matlab prior to starting any work. 
+2. open the `BLDC_motor_custom_inverter.m.prj` file in matlab prior to starting any work.
 
 That's it. This project is in a rather primitive state so this readme file is an active WIP. 
