@@ -14,11 +14,9 @@ Rs = R_phi / 2;
 Ld = L_phi / 2; 
 Lq = Ld;
 lambda = Kt / (1.5 * P);
-B = 0.001;                          % not on datasheet, assume for simulation until BLDC is modelled
+B = 0.001;                          
 J = 5.6e-7;
 
-
-% switch this out with actual experimentally determined K_e once BLDC motor is properly sourced
 K_e = (1 / kn) * (2 * pi / 60); 
 
 % operational safety limits
