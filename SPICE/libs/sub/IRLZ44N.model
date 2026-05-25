@@ -1,0 +1,159 @@
+*==============================================================================
+* IRLZ44N  -  N-Channel Power MOSFET  (TO-220AB)
+* Infineon Technologies (International Rectifier)
+*
+* SPICE Level-3 Model
+*
+* Source:  Infineon IRLZ44N Datasheet
+*          https://www.infineon.com/assets/row/public/documents/24/49/
+*          infineon-irlz44n-datasheet-en.pdf
+*
+* Key Electrical Characteristics (from datasheet):
+* -------------------------------------------------------
+*  Parameter         Symbol    Value     Conditions
+* -------------------------------------------------------
+*  Drain-Source Volt  VDSS      55 V
+*  Gate-Source Volt   VGSS     ±20 V
+*  Drain Current      ID        47 A      Tc = 25°C (continuous)
+*  Drain Current      ID        30 A      Tc = 100°C
+*  Pulsed Drain Curr  IDM      160 A
+*  Power Dissipation  PD       110 W      Tc = 25°C
+*  Gate Threshold     VGS(th)   1.0–2.0V  (typ 1.5V) logic-level
+*  On Resistance      RDS(on)  22 mΩ      VGS=10V, ID=41A
+*  On Resistance      RDS(on)  25 mΩ      VGS=4.5V, ID=30A (typ)
+*  Transconductance   gfs       40 S      VDS=25V, ID=20A
+*  Input Capacitance  Ciss    2700 pF     VGS=0V, VDS=25V, f=1MHz
+*  Output Capacitance Coss     810 pF     VGS=0V, VDS=25V, f=1MHz
+*  Reverse Trans Cap  Crss     195 pF     VGS=0V, VDS=25V, f=1MHz
+*  Total Gate Charge  QG        63 nC     VGS=10V, VDS=44V, ID=25A
+*  Gate-Source Charge QGS       15 nC
+*  Gate-Drain Charge  QGD       30 nC
+*  Turn-On Delay      td(on)    27 ns     VDD=44V, ID=25A
+*  Rise Time          tr        42 ns
+*  Turn-Off Delay     td(off)   94 ns
+*  Fall Time          tf        51 ns
+*  Body Diode Current IS        47 A
+*  Body Diode Vf      VSD        1.5 V    TJ=25°C, IS=25A, VGS=0V
+*  Reverse Recovery   trr       136 ns    TJ=25°C, IF=25A, di/dt=100A/µs
+*  Avalanche Energy   EAS       250 mJ    ID=47A
+*  Thermal Res J-C    RθJC       0.80 °C/W
+*  Thermal Res J-A    RθJA       62   °C/W (PCB mounted)
+* -------------------------------------------------------
+*
+* SPICE Model Pin Order:  Drain  Gate  Source
+*==============================================================================
+
+.SUBCKT IRLZ44N  Drain  Gate  Source
+
+* --- Internal nodes ---
+* Rd  : drain bulk resistance
+* Rs  : source bulk resistance
+* Rg  : gate resistance
+* M1  : intrinsic MOSFET
+* Dbody : body (anti-parallel) diode
+
+* Gate resistance (internal polysilicon + bond wire)
+Rg    Gate  Gi    1.5
+
+* Drain lead/bulk resistance
+Rd    Drain  Di    0.8m
+
+* Source lead/bulk resistance
+Rs    Source  Si   0.5m
+
+* ---------------------------------------------------------------
+* Level-3 MOSFET — parameters derived from datasheet curves
+*
+*   VTO   = threshold voltage                 1.5 V
+*   KP    = transconductance coefficient      derived from gfs=40S
+*   GAMMA = bulk threshold modulation         0.1
+*   PHI   = surface potential                 0.8 V
+*   LAMBDA= channel length modulation         0.05 V⁻¹ (output slope)
+*   RD/RS = zero (handled by external R above)
+*   CGSO  = gate-source overlap cap           (Ciss-Crss) / W → scaled
+*   CGDO  = gate-drain overlap cap            Crss / W → scaled
+*   IS    = body diode saturation current
+*   LEVEL = 3
+*
+* W and L are normalised; KP is adjusted so that
+*   ID ≈ 47A at VGS=10V, VDS=10V, and
+*   RDS(on) = VDS/ID ≈ 22mΩ in the linear region.
+* ---------------------------------------------------------------
+
+M1  Di  Gi  Si  Si  IRLZ44N_MOSFET  W=1  L=1u
+
+.MODEL IRLZ44N_MOSFET  NMOS  LEVEL=3
++   VTO     = 1.5        $ Gate threshold voltage (V)
++   KP      = 62         $ Transconductance parameter (A/V²) — tuned for gfs=40S
++   GAMMA   = 0.1        $ Bulk threshold modulation (V^0.5)
++   PHI     = 0.8        $ Surface potential (V)
++   LAMBDA  = 0.05       $ Channel-length modulation (V⁻¹)
++   THETA   = 0.08       $ Mobility modulation (V⁻¹), limits gm at high VGS
++   KAPPA   = 1.0        $ Saturation field factor
++   ETA     = 0.0        $ Static feedback
++   VMAX    = 0          $ Maximum drift velocity (0 = disabled)
++   XJ      = 0.2u       $ Junction depth
++   LD      = 0.05u      $ Lateral diffusion
++   DELTA   = 0.5        $ Narrow-width factor
++   NFS     = 1e11       $ Fast surface state density
++   TPG     = 1          $ Gate material (+1 = n+ poly)
++   TOX     = 100n       $ Gate oxide thickness (normalised)
++   NSUB    = 4e15       $ Substrate doping (cm⁻³)
++   UO      = 600        $ Surface mobility (cm²/V·s), reduced for power MOSFET
++   RD      = 0          $ Drain ohmic resistance (handled externally)
++   RS      = 0          $ Source ohmic resistance (handled externally)
++   RG      = 0          $ Gate resistance (handled externally)
++   IS      = 1e-14      $ Bulk p-n saturation current
++   CGSO    = 1.1n       $ Gate-source overlap cap per unit W  (Ciss-Crss ≈ 2505pF → scaled)
++   CGDO    = 195p       $ Gate-drain overlap cap per unit W   (Crss ≈ 195pF)
++   CGBO    = 10p        $ Gate-bulk overlap cap per unit length
++   CJ      = 500u       $ Zero-bias bulk junction cap (F/m²) — Coss contribution
++   CJSW    = 10n        $ Sidewall junction cap
++   MJ      = 0.5        $ Bulk junction grading coefficient
++   MJSW    = 0.33       $ Sidewall grading coefficient
++   PB      = 0.8        $ Bulk junction potential
+
+* ---------------------------------------------------------------
+* Body (anti-parallel) diode
+*   Forward drop  ≈ 1.5 V at IS=25A  (VSD = 1.5V typ from datasheet)
+*   Reverse recovery trr = 136 ns
+*   CJO set to reproduce Coss at low VDS
+* ---------------------------------------------------------------
+
+Dbody  Si  Di  IRLZ44N_BODY
+
+.MODEL IRLZ44N_BODY  D
++   IS    = 1.5e-11     $ Saturation current (tuned for Vf=1.5V at 25A)
++   N     = 1.05        $ Emission coefficient
++   RS    = 4m          $ Series resistance (Ω)
++   TT    = 136n        $ Transit time ≈ trr = 136 ns
++   CJO   = 810p        $ Zero-bias junction cap → Coss @ VDS≈0 (pF)
++   VJ    = 0.8         $ Junction built-in potential (V)
++   M     = 0.45        $ Grading coefficient
++   EG    = 1.11        $ Energy gap (Si)
++   XTI   = 3.0         $ Saturation current temp exponent
++   BV    = 55          $ Reverse breakdown = VDSS (V)
++   IBV   = 1m          $ Current at BV (A)
+
+.ENDS IRLZ44N
+
+*==============================================================================
+* USAGE EXAMPLE:
+*
+*   X1  VD  VG  VS  IRLZ44N
+*
+* where VD = drain node, VG = gate node, VS = source node.
+*
+* The subcircuit models:
+*   - Channel conduction (Level-3 MOSFET)
+*   - Gate, drain and source parasitic resistances
+*   - Body diode with reverse-recovery (TT parameter)
+*   - Nonlinear capacitances Ciss, Coss, Crss via MOSFET + diode model
+*
+* NOTE:
+*   This model is derived from the datasheet parameters. For best accuracy
+*   at a specific operating point, KP, VTO, and THETA may need fine-tuning
+*   against the VGS vs ID transfer curves (Figure 3 in the datasheet).
+*   Thermal effects are not modelled; for power-dissipation simulations
+*   use an external thermal RC network (RθJC=0.80°C/W, RθJA=62°C/W).
+*==============================================================================

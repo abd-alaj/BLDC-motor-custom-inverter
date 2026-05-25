@@ -38,6 +38,10 @@ python_scripts/
 **/*.pretty/*.bak
 
 # LTSPICE
-*.{raw,fft,log,plt,net}
+*.raw
+*.fft
+*.log
+*.plt
+*.net
 *.op.raw
 *.tmp
