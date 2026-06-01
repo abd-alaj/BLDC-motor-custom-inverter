@@ -632,13 +632,29 @@
         "uuid": "6b82a8a8-ae2c-4987-9dc0-17eac5149d3f"
       }
     ],
-    "used_designators": "",
+    "used_designators": "U1-9,D1-3,#PWR1-48,R1-26,J1-3,C1-19,Q1-6",
     "variants": []
   },
   "sheets": [
     [
       "6b82a8a8-ae2c-4987-9dc0-17eac5149d3f",
       "Root"
+    ],
+    [
+      "5ced536b-3314-4fa5-ab67-f1b42cff0312",
+      "Power Management"
+    ],
+    [
+      "10e429a8-d1d7-4093-bf89-4854dc68bef1",
+      "Gate Drive"
+    ],
+    [
+      "902fe731-fd21-46ba-b7ee-b1d6cec2ca3c",
+      "OCP_Current_Sens"
+    ],
+    [
+      "07ba5a79-3dd1-4919-a88f-9bae268f3924",
+      "MCU"
     ]
   ],
   "text_variables": {},
