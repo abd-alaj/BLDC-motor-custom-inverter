@@ -2,7 +2,7 @@
 	(version 20260306)
 	(generator "eeschema")
 	(generator_version "10.0")
-	(uuid "0b5ffac9-90f3-490e-9618-35f5b78f8e34")
+	(uuid "66e44a64-8914-4095-8ec6-a7ee9085dae1")
 	(paper "A4")
 	(lib_symbols
 		(symbol "Amplifier_Operational:LMV321"
@@ -1442,6 +1442,12 @@
 		(uuid "3937fde9-11c6-4f20-928a-5b422fc1d232")
 	)
 	(junction
+		(at 228.6 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3f6eb286-5cf7-452c-9580-aaf5be237961")
+	)
+	(junction
 		(at 59.69 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1500,6 +1506,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e11ceae2-5ecc-419d-b551-fe34ba35e66e")
+	)
+	(junction
+		(at 205.74 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "febf7c5a-c257-4b4f-b4b6-e151125763e9")
 	)
 	(wire
 		(pts
@@ -1560,6 +1572,16 @@
 			(type default)
 		)
 		(uuid "095a0c8b-8175-45a3-97d0-22467a007543")
+	)
+	(wire
+		(pts
+			(xy 205.74 104.14) (xy 205.74 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b69c8aa-379e-4be2-b98f-5ca65093d12d")
 	)
 	(wire
 		(pts
@@ -1680,6 +1702,16 @@
 			(type default)
 		)
 		(uuid "179fac70-83a7-46a5-98c5-85722375a75f")
+	)
+	(wire
+		(pts
+			(xy 228.6 101.6) (xy 228.6 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19badb5c-016c-4496-9e2f-80c3234a8bff")
 	)
 	(wire
 		(pts
@@ -1903,6 +1935,16 @@
 	)
 	(wire
 		(pts
+			(xy 198.12 104.14) (xy 205.74 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57834de9-2aa7-4271-bf68-e284b59d45b2")
+	)
+	(wire
+		(pts
 			(xy 34.29 69.85) (xy 34.29 81.28)
 		)
 		(stroke
@@ -1910,6 +1952,16 @@
 			(type default)
 		)
 		(uuid "581bad7c-580e-4887-bc96-e6bcff9f83e2")
+	)
+	(wire
+		(pts
+			(xy 228.6 101.6) (xy 238.76 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "582ca77f-6a0f-4fb9-b345-e19f15a558cb")
 	)
 	(wire
 		(pts
@@ -2053,6 +2105,16 @@
 	)
 	(wire
 		(pts
+			(xy 205.74 104.14) (xy 210.82 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "763abdc8-84c9-47ce-b79e-aced56f38658")
+	)
+	(wire
+		(pts
 			(xy 125.73 168.91) (xy 125.73 161.29)
 		)
 		(stroke
@@ -2083,13 +2145,23 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 101.6) (xy 238.76 101.6)
+			(xy 226.06 101.6) (xy 228.6 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "83358c2c-c384-483d-a6d9-ccd08ceb6376")
+	)
+	(wire
+		(pts
+			(xy 205.74 124.46) (xy 212.09 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8881fc47-14af-42b6-b97b-61598b1c3a9c")
 	)
 	(wire
 		(pts
@@ -2303,6 +2375,16 @@
 	)
 	(wire
 		(pts
+			(xy 219.71 124.46) (xy 228.6 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6cae339-77c8-4ee8-b047-24996f93f9db")
+	)
+	(wire
+		(pts
 			(xy 35.56 35.56) (xy 35.56 41.91)
 		)
 		(stroke
@@ -2370,6 +2452,16 @@
 			(justify left bottom)
 		)
 		(uuid "1099d454-053a-4da6-8cb8-fb76b05d33a8")
+	)
+	(label "VSHUNT_A"
+		(at 198.12 104.14 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2a98004d-dcaf-483d-8719-76cfac02ebb1")
 	)
 	(label "V_BIAS"
 		(at 39.37 165.1 90)
@@ -2696,6 +2788,85 @@
 			(project "mosfets"
 				(path "/6b82a8a8-ae2c-4987-9dc0-17eac5149d3f/902fe731-fd21-46ba-b7ee-b1d6cec2ca3c"
 					(reference "R25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 215.9 124.46 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0fc92aa1-e636-4a04-8d17-d952d0dabe16")
+		(property "Reference" "R4"
+			(at 215.9 122.174 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 215.9 127.254 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 126.238 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 215.9 124.46 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9a60c9c5-8707-4d60-a5fc-a8d59fdd05f6")
+		)
+		(pin "2"
+			(uuid "f2b0a5a6-6c9e-4a09-8305-5f3d6a2ca42b")
+		)
+		(instances
+			(project "mosfets"
+				(path "/6b82a8a8-ae2c-4987-9dc0-17eac5149d3f/902fe731-fd21-46ba-b7ee-b1d6cec2ca3c"
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -4412,7 +4583,6 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "688e2073-b1b4-4015-84e8-7098532a8b78")
 		(property "Reference" "#PWR047"
 			(at 215.9 120.65 0)
@@ -4426,7 +4596,7 @@
 			)
 		)
 		(property "Value" "GNDA"
-			(at 215.9 119.38 0)
+			(at 215.9 118.364 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
