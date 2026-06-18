@@ -50,7 +50,23 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "border_display_style": 2,
+          "border_hatch_pitch": 0.5,
+          "corner_radius": 0.0,
+          "corner_smoothing": 0,
+          "fill_mode": 0,
+          "hatch_gap": 1.5,
+          "hatch_orientation": 0.0,
+          "hatch_smoothing_level": 0,
+          "hatch_smoothing_value": 0.1,
+          "hatch_thickness": 1.0,
+          "min_clearance": 0.5,
+          "min_island_area": 10.0,
+          "min_thickness": 0.25,
+          "pad_connection": 1,
+          "remove_islands": 0,
+          "thermal_relief_gap": 0.5,
+          "thermal_relief_spoke_width": 0.5
         }
       },
       "diff_pair_dimensions": [],
@@ -224,7 +240,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -632,7 +648,7 @@
         "uuid": "6b82a8a8-ae2c-4987-9dc0-17eac5149d3f"
       }
     ],
-    "used_designators": "U10-11,C20-25,R9,R16,R21-24,R27-29,#PWR49-64",
+    "used_designators": "Q3-9,U6-7,U13,CR1-3,J1-5,R4,R6-8,R10-12,R17,R21-22,R30-42,#PWR4,#PWR9,#PWR11-23,#PWR26,#PWR29,#PWR34-35,#PWR44-46,#PWR56,#PWR61,D2-4,D6,C5-12,C27-29,TP1-24,RV1",
     "variants": []
   },
   "sheets": [
@@ -646,7 +662,7 @@
     ],
     [
       "10e429a8-d1d7-4093-bf89-4854dc68bef1",
-      "Gate Drive"
+      "Gate Drive A"
     ],
     [
       "902fe731-fd21-46ba-b7ee-b1d6cec2ca3c",
@@ -655,6 +671,14 @@
     [
       "07ba5a79-3dd1-4919-a88f-9bae268f3924",
       "MCU"
+    ],
+    [
+      "444fe749-e36a-492c-a9ef-f7bf16612a08",
+      "Gate Drive B"
+    ],
+    [
+      "2f7936bf-68b4-4a14-9535-678208cebcc4",
+      "Gate Drive C"
     ]
   ],
   "text_variables": {},
