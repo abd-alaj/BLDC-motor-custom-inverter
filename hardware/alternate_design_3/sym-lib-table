@@ -1,5 +1,0 @@
-(sym_lib_table
-	(version 7)
-	(lib (name "NUCLEO-G431KB") (type "KiCad") (uri "C:/Users/abdab/Documents/Capstone/BLDC-motor-custom-inverter/hardware/libraries/symbols/NUCLEO-G431KB.kicad_sym") (options "") (descr ""))
-	(lib (name "ADUM3223ARZ") (type "KiCad") (uri "C:/Users/abdab/Documents/Capstone/BLDC-motor-custom-inverter/hardware/libraries/symbols/ADUM3223ARZ.kicad_sym") (options "") (descr ""))
-)

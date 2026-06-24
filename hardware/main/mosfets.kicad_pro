@@ -50,10 +50,32 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "border_display_style": 2,
+          "border_hatch_pitch": 0.5,
+          "corner_radius": 0.0,
+          "corner_smoothing": 0,
+          "fill_mode": 0,
+          "hatch_gap": 1.5,
+          "hatch_orientation": 0.0,
+          "hatch_smoothing_level": 0,
+          "hatch_smoothing_value": 0.1,
+          "hatch_thickness": 1.0,
+          "min_clearance": 0.5,
+          "min_island_area": 10.0,
+          "min_thickness": 0.25,
+          "pad_connection": 1,
+          "remove_islands": 0,
+          "thermal_relief_gap": 0.5,
+          "thermal_relief_spoke_width": 0.5
         }
       },
-      "diff_pair_dimensions": [],
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.0,
+          "via_gap": 0.0,
+          "width": 0.0
+        }
+      ],
       "drc_exclusions": [],
       "meta": {
         "version": 2
@@ -124,7 +146,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.0,
+        "min_clearance": 0.16,
         "min_connection": 0.0,
         "min_copper_edge_clearance": 0.5,
         "min_groove_width": 0.0,
@@ -187,7 +209,9 @@
           "td_width_to_size_filter_ratio": 0.9
         }
       ],
-      "track_widths": [],
+      "track_widths": [
+        0.0
+      ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
           "corner_radius_percentage": 80,
@@ -214,7 +238,12 @@
           "spacing": 0.6
         }
       },
-      "via_dimensions": [],
+      "via_dimensions": [
+        {
+          "diameter": 0.0,
+          "drill": 0.0
+        }
+      ],
       "zones_allow_external_fillets": false
     },
     "ipc2581": {
@@ -224,7 +253,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "1"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -632,13 +661,37 @@
         "uuid": "6b82a8a8-ae2c-4987-9dc0-17eac5149d3f"
       }
     ],
-    "used_designators": "",
+    "used_designators": "C32-37,J5,#PWR66-67",
     "variants": []
   },
   "sheets": [
     [
       "6b82a8a8-ae2c-4987-9dc0-17eac5149d3f",
       "Root"
+    ],
+    [
+      "5ced536b-3314-4fa5-ab67-f1b42cff0312",
+      "Power Management"
+    ],
+    [
+      "10e429a8-d1d7-4093-bf89-4854dc68bef1",
+      "Gate Drive A"
+    ],
+    [
+      "902fe731-fd21-46ba-b7ee-b1d6cec2ca3c",
+      "OCP_Current_Sens"
+    ],
+    [
+      "07ba5a79-3dd1-4919-a88f-9bae268f3924",
+      "MCU"
+    ],
+    [
+      "444fe749-e36a-492c-a9ef-f7bf16612a08",
+      "Gate Drive B"
+    ],
+    [
+      "2f7936bf-68b4-4a14-9535-678208cebcc4",
+      "Gate Drive C"
     ]
   ],
   "text_variables": {},
