@@ -2920,7 +2920,7 @@
 				)
 			)
 		)
-		(property "Footprint" "ADUM3223ARZ:SOIC127P600X175-16N"
+		(property "Footprint" "footprint:SOIC127P600X175-16N"
 			(at 96.52 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -3198,7 +3198,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
 			(at 124.46 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -3282,7 +3282,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric_Pad0.98x0.95mm_HandSolder"
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 			(at 130.81 89.408 90)
 			(hide yes)
 			(show_name no)
@@ -3372,7 +3372,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
 			(at 44.45 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -3545,7 +3545,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 67.0052 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -3720,7 +3720,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 117.8052 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -4077,7 +4077,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 78.4352 92.71 0)
 			(hide yes)
 			(show_name no)
@@ -4164,7 +4164,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "footprint:MURA160T3G"
 			(at 139.7 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4544,7 +4544,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
 			(at 44.45 102.87 0)
 			(hide yes)
 			(show_name no)
@@ -4891,7 +4891,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric_Pad0.74x0.62mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
 			(at 117.8052 116.84 0)
 			(hide yes)
 			(show_name no)
@@ -4981,7 +4981,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
 			(at 133.35 82.55 0)
 			(hide yes)
 			(show_name no)
