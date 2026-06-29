@@ -1945,16 +1945,6 @@
 		)
 		(uuid "f9b32111-00e3-4883-ae09-608cab20d2c1")
 	)
-	(label "PHASE_C"
-		(at 237.49 92.71 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "057499bd-9669-4d11-80bc-70dc3611f888")
-	)
 	(label "12V_BOOTSTRAP"
 		(at 124.46 36.83 180)
 		(effects
@@ -2025,16 +2015,6 @@
 		)
 		(uuid "27a1ee58-8e05-4c0d-b698-971613b8e8c6")
 	)
-	(label "PHASE_A"
-		(at 237.49 87.63 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "382b96d9-55e1-4348-acff-46b2b81b119a")
-	)
 	(label "SD_C"
 		(at 264.16 133.35 0)
 		(effects
@@ -2064,6 +2044,16 @@
 			(justify right bottom)
 		)
 		(uuid "60fc0a6b-fa97-4659-b7fd-e5000b892a4c")
+	)
+	(label "PHASE_C"
+		(at 237.49 87.63 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "66d7ba85-14dd-431f-8eab-999ddc60343a")
 	)
 	(label "3.3VDC"
 		(at 127 58.42 180)
@@ -2234,6 +2224,16 @@
 			(justify left bottom)
 		)
 		(uuid "d2b707a3-a6b3-4a31-9dbb-0e6348fecf9e")
+	)
+	(label "PHASE_A"
+		(at 237.49 92.71 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d7d72530-d7f8-4002-86cb-7b6be321681c")
 	)
 	(label "PHASE_A"
 		(at 185.42 43.18 0)

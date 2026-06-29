@@ -4419,7 +4419,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 78.74 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -5062,7 +5062,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 254 45.72 0)
 			(hide yes)
 			(show_name no)
@@ -5480,7 +5480,7 @@
 				)
 			)
 		)
-		(property "Footprint" "footprint:MURA160T3G"
+		(property "Footprint" "footprint:74LVC1G332_DCK0006A_N"
 			(at 127 45.72 0)
 			(hide yes)
 			(show_name no)
@@ -5656,7 +5656,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 80.01 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -5735,7 +5735,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 146.05 127 0)
 			(hide yes)
 			(show_name no)
@@ -8374,7 +8374,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 111.76 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -8453,7 +8453,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 81.28 129.54 0)
 			(hide yes)
 			(show_name no)
@@ -9337,7 +9337,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_Pad_1.5x1.5mm"
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 255.27 130.81 0)
 			(hide yes)
 			(show_name no)

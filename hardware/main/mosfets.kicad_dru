@@ -1,0 +1,222 @@
+# PCBWay 4-Layer Standard PCB Design Rules
+# Source: https://www.pcbway.com/capabilities.html
+# Target: KiCad 10+  (.kicad_dru format)
+# Scope: 4-layer FR-4, 1oz outer / 1oz inner copper, standard process
+#
+# Constraint reference (PCBWay standard process minimums for 4L):
+#   Min trace/space (outer, 1oz/35um):       5mil / 6mil  (0.127mm / 0.1524mm)
+#   Min trace/space (inner, 1oz/35um):       4mil / 5mil  (0.1016mm / 0.127mm)
+#   Min annular ring (via, outer, 1oz):      5mil         (0.127mm)
+#   Min annular ring (component hole, 1oz):  10mil        (0.254mm)
+#   Min annular ring (inner layer, 4L):      7mil         (0.1778mm) hole-to-copper
+#   Min drill (CNC):                         0.2mm
+#   Min via drill:                           0.2mm
+#   Min via pad:                             drill + 2x annular = 0.2 + 2x0.127 = 0.454mm
+#   Hole-to-hole spacing (via <=0.45mm):     11mil        (0.2794mm)
+#   Hole-to-hole spacing (component hole):   16mil        (0.4064mm)
+#   Min PTH pad annular ring (std):          0.15mm       (6mil, from standard table)
+#   Copper to board edge (CNC):              0.25mm
+#   Min solder mask opening:                 2mil         (0.0508mm) per side expansion
+#   Min solder mask bridge:                  4mil         (0.1016mm)
+#   Min silkscreen width:                    0.15mm
+#   Min silkscreen height:                   0.8mm
+#   Min plated slot width:                   0.5mm
+#   Min non-plated slot width:               0.8mm
+#   Min castellated hole diameter:           0.5mm
+
+(version 1)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum copper trace width — outer layers (1oz/35um, standard)
+# PCBWay standard: 5mil (0.127mm) outer layer, 35um copper
+# ---------------------------------------------------------------------------
+(rule "Min Trace Width - Outer Layers"
+   (constraint min_track_width (min 0.127mm))
+   (layer_filter "*.Cu")
+   (condition "A.Type == 'track'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum copper trace width — inner layers (1oz/35um, standard)
+# PCBWay standard: 4mil (0.1016mm) inner layer, 35um copper
+# ---------------------------------------------------------------------------
+(rule "Min Trace Width - Inner Layers"
+   (constraint min_track_width (min 0.1016mm))
+   (layer_filter "In*.Cu")
+   (condition "A.Type == 'track'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum copper clearance — outer layers (1oz/35um, standard)
+# PCBWay standard outer spacing: 6mil (0.1524mm)
+# ---------------------------------------------------------------------------
+(rule "Min Clearance - Outer Layers"
+   (constraint clearance (min 0.1524mm))
+   (layer_filter "F.Cu" "B.Cu")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum copper clearance — inner layers (1oz/35um, standard)
+# PCBWay standard inner spacing: 5mil (0.127mm)
+# ---------------------------------------------------------------------------
+(rule "Min Clearance - Inner Layers"
+   (constraint clearance (min 0.127mm))
+   (layer_filter "In1.Cu" "In2.Cu")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum via drill diameter
+# PCBWay standard: 0.2mm minimum drill (extra charge below 0.2mm)
+# ---------------------------------------------------------------------------
+(rule "Min Via Drill"
+   (constraint hole_size (min 0.2mm))
+   (condition "A.Type == 'via'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum via annular ring — outer layers (1oz/35um)
+# PCBWay standard: 5mil (0.127mm) for via holes, outer layer
+# Results in min via pad diameter = drill(0.2mm) + 2*0.127mm = 0.454mm
+# ---------------------------------------------------------------------------
+(rule "Min Via Annular Ring"
+   (constraint annular_width (min 0.127mm))
+   (condition "A.Type == 'via'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum PTH (component hole) pad annular ring
+# PCBWay standard: 0.15mm (6mil) from standard capabilities table
+# PCBWay advanced standard process: 10mil (0.254mm) for component holes (1oz)
+# Using conservative standard table value: 0.15mm
+# ---------------------------------------------------------------------------
+(rule "Min PTH Annular Ring"
+   (constraint annular_width (min 0.15mm))
+   (condition "A.Type == 'pad' && A.Attribute == 'through_hole'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum inner layer isolation ring (hole-to-copper) — 4L
+# PCBWay advanced table item 13, 4L standard process: 7mil (0.1778mm)
+# This is the minimum distance from hole edge to inner copper pour/trace
+# ---------------------------------------------------------------------------
+(rule "Min Inner Layer Hole to Copper - 4L"
+   (constraint hole_clearance (min 0.1778mm))
+   (layer_filter "In1.Cu" "In2.Cu")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum via-to-via hole spacing (via <= 0.45mm)
+# PCBWay: 11mil (0.2794mm) edge-to-edge hole spacing for small vias
+# ---------------------------------------------------------------------------
+(rule "Min Via to Via Hole Spacing"
+   (constraint hole_to_hole (min 0.2794mm))
+   (condition "A.Type == 'via' && B.Type == 'via'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum component hole-to-hole spacing
+# PCBWay: 16mil (0.4064mm) edge-to-edge
+# ---------------------------------------------------------------------------
+(rule "Min PTH to PTH Hole Spacing"
+   (constraint hole_to_hole (min 0.4064mm))
+   (condition "A.Type == 'pad' && A.Attribute == 'through_hole' && B.Type == 'pad' && B.Attribute == 'through_hole'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum drill hole size (CNC) — applies to all drilled holes
+# PCBWay: 0.2mm minimum (extra charges below 0.2mm, same as via rule above)
+# ---------------------------------------------------------------------------
+(rule "Min Drill Size - All Holes"
+   (constraint hole_size (min 0.2mm))
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Maximum drill hole size (CNC)
+# PCBWay: 6.0mm maximum standard, holes >6mm use CNC milling
+# ---------------------------------------------------------------------------
+(rule "Max Drill Size"
+   (constraint hole_size (max 6.0mm))
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Copper to board edge clearance
+# PCBWay standard: 0.25mm (CNC routing, normal process)
+# ---------------------------------------------------------------------------
+(rule "Copper to Board Edge"
+   (constraint edge_clearance (min 0.25mm))
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum solder mask expansion (opening per side)
+# PCBWay standard green mask opening: 2mil (0.0508mm) per side
+# ---------------------------------------------------------------------------
+(rule "Min Solder Mask Expansion"
+   (constraint solder_mask_expansion (min 0.0508mm))
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum solder mask bridge between pads (mask web)
+# PCBWay: 4mil (0.1016mm) for <2oz copper, green mask
+# ---------------------------------------------------------------------------
+(rule "Min Solder Mask Bridge"
+   (constraint physical_clearance (min 0.1016mm))
+   (layer_filter "F.Mask" "B.Mask")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum silkscreen line width
+# PCBWay: 0.15mm minimum character/line width
+# ---------------------------------------------------------------------------
+(rule "Min Silkscreen Width"
+   (constraint min_track_width (min 0.15mm))
+   (layer_filter "F.Silkscreen" "B.Silkscreen")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum silkscreen to pad clearance
+# Prevents silkscreen from printing over exposed pads
+# 0.0mm is the bare minimum (touching); 0.1mm is a safe practical value
+# ---------------------------------------------------------------------------
+(rule "Silkscreen to Pad Clearance"
+   (constraint silk_clearance (min 0.1mm))
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum plated slot width
+# PCBWay: plated slot >= 0.5mm
+# ---------------------------------------------------------------------------
+(rule "Min Plated Slot Width"
+   (constraint hole_size (min 0.5mm))
+   (condition "A.isPlated() && A.Drill == 'oval'")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum castellated (plated half) hole diameter
+# PCBWay standard: >= 0.5mm
+# ---------------------------------------------------------------------------
+(rule "Min Castellated Hole Diameter"
+   (constraint hole_size (min 0.5mm))
+   (condition "A.Type == 'pad' && A.Attribute == 'through_hole' && A.isOnEdge()")
+)
+
+# ---------------------------------------------------------------------------
+# RULE: Minimum board size
+# PCBWay: minimum board dimension 3mm x 3mm
+# Enforced as edge_clearance of 1.5mm from board center — not directly
+# representable in DRU; use courtyard check instead.
+# Board size minimum is a layout constraint, not a DRC rule in KiCad.
+# ---------------------------------------------------------------------------
+
+# ---------------------------------------------------------------------------
+# RULE: Differential pair gap (informational — matches min outer clearance)
+# If using differential pairs, minimum gap must meet outer layer spacing: 6mil
+# ---------------------------------------------------------------------------
+(rule "Min Diff Pair Gap - Outer"
+   (constraint diff_pair_gap (min 0.1524mm))
+   (layer_filter "F.Cu" "B.Cu")
+)
+
+(rule "Min Diff Pair Gap - Inner"
+   (constraint diff_pair_gap (min 0.127mm))
+   (layer_filter "In1.Cu" "In2.Cu")
+)
