@@ -147,7 +147,7 @@
 *     thereby.
 *
 ******************************************************************************
-.SUBCKT IR2110 LO HO COM VSS LIN HIN VCC VB VS VDD SD
+.SUBCKT IR2110 LO HO COM VSS LIN HIN VCC VB VS SD VDD
 R_HIN HIN VSS 1E12
 C_HIN HIN VSS 1F
 R_LIN LIN VSS 1E12
