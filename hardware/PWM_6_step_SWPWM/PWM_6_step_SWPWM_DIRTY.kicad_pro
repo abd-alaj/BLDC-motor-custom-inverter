@@ -150,8 +150,8 @@
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.005,
-        "min_clearance": 0.5,
-        "min_connection": 0.5,
+        "min_clearance": 0.38,
+        "min_connection": 0.38,
         "min_copper_edge_clearance": 1.0,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.3,
@@ -553,7 +553,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "gerbers/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -688,7 +688,7 @@
         "uuid": "da5a1e6a-2605-436b-a30c-1027586d5c0a"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#PWR31-35",
     "variants": []
   },
   "sheets": [
