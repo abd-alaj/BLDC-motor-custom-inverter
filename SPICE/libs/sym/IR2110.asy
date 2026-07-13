@@ -3,8 +3,8 @@ SymbolType BLOCK
 RECTANGLE Normal -64 -104 64 104
 WINDOW 0 0 -104 Bottom 2
 WINDOW 3 0 104 Top 2
-SYMATTR Prefix X
 SYMATTR Value IR2110
+SYMATTR Prefix X
 SYMATTR ModelFile C:\Users\abdab\Documents\Capstone\BLDC-motor-custom-inverter\SPICE\libs\IR2110.lib
 PIN -64 -64 LEFT 8
 PINATTR PinName LO
