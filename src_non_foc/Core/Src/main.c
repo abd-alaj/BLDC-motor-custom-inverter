@@ -22,6 +22,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "as5048a.h"
+#include <stdio.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +53,7 @@ SPI_HandleTypeDef hspi1;
 TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
+AS5048A_HandleTypeDef encoder1;
 
 /* USER CODE END PV */
 
@@ -102,6 +106,10 @@ int main(void)
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
+  AS5048A_Init(&encoder1, &hspi1, GPIOA, GPIO_PIN_4);
+  AS5048A_ClearErrorFlag(&encoder1, NULL);
+  printf("AS5048A driver initialized.\r\n");
+
   uint32_t duty = htim1.Init.Period / 2;
 
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -138,7 +146,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  AS5048A_AngleTypeDef angle;
 
+	      if (AS5048A_ReadAngle(&encoder1, &angle))
+	      {
+	          if (!angle.parity_ok)
+	          {
+	              printf("AS5048A: parity error, discarding sample\r\n");
+	          }
+	          else
+	          {
+	              printf("raw=%5u  angle=%7.2f deg  err_flag=%d\r\n",
+	                     angle.raw_angle, angle.angle_deg, angle.error_flag);
+	          }
+	      }
+	      else
+	      {
+	          printf("AS5048A: SPI transfer failed (check wiring/CS pin)\r\n");
+	      }
+
+	      HAL_Delay(100); /* 10 Hz print rate -- plenty to eyeball on the console */
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -279,17 +306,17 @@ static void MX_SPI1_Init(void)
   hspi1.Instance = SPI1;
   hspi1.Init.Mode = SPI_MODE_MASTER;
   hspi1.Init.Direction = SPI_DIRECTION_2LINES;
-  hspi1.Init.DataSize = SPI_DATASIZE_4BIT;
+  hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
-  hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
-  hspi1.Init.NSS = SPI_NSS_HARD_OUTPUT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  hspi1.Init.CLKPhase = SPI_PHASE_2EDGE;
+  hspi1.Init.NSS = SPI_NSS_SOFT;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
   hspi1.Init.CRCPolynomial = 7;
   hspi1.Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
-  hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  hspi1.Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   if (HAL_SPI_Init(&hspi1) != HAL_OK)
   {
     Error_Handler();
@@ -405,6 +432,7 @@ static void MX_TIM1_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
   /* USER CODE END MX_GPIO_Init_1 */
@@ -413,6 +441,16 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(SPI_CSn_GPIO_Port, SPI_CSn_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : SPI_CSn_Pin */
+  GPIO_InitStruct.Pin = SPI_CSn_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(SPI_CSn_GPIO_Port, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

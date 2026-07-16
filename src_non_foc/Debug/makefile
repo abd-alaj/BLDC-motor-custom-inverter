@@ -62,7 +62,7 @@ main-build: src_non_foc.elf secondary-outputs
 
 # Tool invocations
 src_non_foc.elf src_non_foc.map: $(OBJS) $(USER_OBJS) C:\Users\abdab\Documents\Capstone\BLDC-motor-custom-inverter\src_non_foc\STM32G431KBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "src_non_foc.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abdab\Documents\Capstone\BLDC-motor-custom-inverter\src_non_foc\STM32G431KBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="src_non_foc.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "src_non_foc.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\abdab\Documents\Capstone\BLDC-motor-custom-inverter\src_non_foc\STM32G431KBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="src_non_foc.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

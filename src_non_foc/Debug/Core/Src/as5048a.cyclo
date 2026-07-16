@@ -1,0 +1,10 @@
+../Core/Src/as5048a.c:14:20:CS_Low	1
+../Core/Src/as5048a.c:19:20:CS_High	1
+../Core/Src/as5048a.c:25:17:ComputeParityBit	2
+../Core/Src/as5048a.c:37:13:CheckParityOk	2
+../Core/Src/as5048a.c:51:6:AS5048A_Init	1
+../Core/Src/as5048a.c:60:6:AS5048A_TransferFrame	3
+../Core/Src/as5048a.c:84:6:AS5048A_ReadAngle	3
+../Core/Src/as5048a.c:109:6:AS5048A_ReadDiagAGC	3
+../Core/Src/as5048a.c:122:6:AS5048A_ReadMagnitude	3
+../Core/Src/as5048a.c:135:6:AS5048A_ClearErrorFlag	4

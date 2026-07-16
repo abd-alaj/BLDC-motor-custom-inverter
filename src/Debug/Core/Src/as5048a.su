@@ -1,0 +1,12 @@
+../Core/Src/as5048a.c:14:20:CS_Low	16	static
+../Core/Src/as5048a.c:19:20:CS_High	16	static
+../Core/Src/as5048a.c:25:17:ComputeParityBit	24	static
+../Core/Src/as5048a.c:37:13:CheckParityOk	24	static
+../Core/Src/as5048a.c:51:6:AS5048A_Init	24	static
+../Core/Src/as5048a.c:65:24:BuildReadCommand	16	static
+../Core/Src/as5048a.c:76:13:CS_RecoveryDelay	16	static,ignoring_inline_asm
+../Core/Src/as5048a.c:83:6:AS5048A_TransferFrame	40	static
+../Core/Src/as5048a.c:114:6:AS5048A_ReadAngle	24	static
+../Core/Src/as5048a.c:136:6:AS5048A_ReadDiagAGC	24	static
+../Core/Src/as5048a.c:149:6:AS5048A_ReadMagnitude	24	static
+../Core/Src/as5048a.c:162:6:AS5048A_ClearErrorFlag	24	static
