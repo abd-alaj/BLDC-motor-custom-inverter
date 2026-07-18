@@ -72,33 +72,9 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	extern DMA_HandleTypeDef hdma_tim1_up;
-	MX_TIM1_UP_DMA_Init();
-	__HAL_LINKDMA(&htim1, hdma[TIM_DMA_ID_UPDATE], hdma_tim1_up);
-
-	//start TIM1 channel 1
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
-
-	//start TIM2 channel 2
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
-
-	//start TIM3 channel 3
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
-	HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
-
-
-	//create DMA burst transfer
-	//write phase a, b, c, to ccr1, ccr2, cc3, respectively
-	// the DMA is circular, so it will reset on its own, all done while CPU is idle
-
-
-	HAL_TIM_DMABurst_MultiWriteStart(&htim1,
-			TIM_DMABASE_CCR1, TIM_DMA_UPDATE,
-			(uint32_t*)&sine_lut[0], TIM_DMABURSTLENGTH_3TRANSFERS,
-			LUT_SIZE);
-
+  /* NOTHING TIM1/DMA-related here. htim1 does not exist yet --
+   * MX_TIM1_Init() has not run. All PWM/DMA start calls moved to
+   * USER CODE BEGIN 2, after every MX_*_Init() has completed. */
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -107,14 +83,12 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -126,40 +100,67 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  // initializes AS5048A SPI interface, set CS pin to PA4
   AS5048A_Init(&encoder1, &hspi1, SPI1_CSn_GPIO_Port, SPI1_CSn_Pin);
   AS5048A_ClearErrorFlag(&encoder1, NULL);
+
+
+  HAL_StatusTypeDef dma_status;
+
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1,
+                                      (uint32_t*)sine_lut_a, LUT_SIZE);
+  if (dma_status != HAL_OK) { Error_Handler(); }
+
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_2,
+                                      (uint32_t*)sine_lut_b, LUT_SIZE);
+  if (dma_status != HAL_OK) { Error_Handler(); }
+
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_3,
+                                      (uint32_t*)sine_lut_c, LUT_SIZE);
+  if (dma_status != HAL_OK) { Error_Handler(); }
+
+  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_3);
+
+
+
+  /* --code just to see the PWM output with no SPWM or DMA garbage
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 4300);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_2, 4300);
+  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_3, 4300);
+
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+
+  */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
-  // create an angle struct
   AS5048A_AngleTypeDef angle;
 
   while (1)
   {
+    if (AS5048A_ReadAngle(&encoder1, &angle))
+    {
+      if (!angle.parity_ok)
+      {
+        printf("AS5048A: parity error, discarding sample\r\n");
+      }
+      else
+      {
+        printf("raw=%5u  angle=%7.2f deg  err_flag=%d\r\n",
+               angle.raw_angle, angle.angle_deg, angle.error_flag);
+      }
+    }
+    else
+    {
+      printf("AS5048A: SPI transfer failed (check wiring/CS pin)\r\n");
+    }
 
-
-	      if (AS5048A_ReadAngle(&encoder1, &angle))
-	      {
-	          if (!angle.parity_ok)
-	          {
-	              printf("AS5048A: parity error, discarding sample\r\n");
-	          }
-	          else
-	          {
-	              printf("raw=%5u  angle=%7.2f deg  err_flag=%d\r\n",
-	                     angle.raw_angle, angle.angle_deg, angle.error_flag);
-	          }
-	      }
-	      else
-	      {
-	          printf("AS5048A: SPI transfer failed (check wiring/CS pin)\r\n");
-	      }
-
-	      HAL_Delay(100); /* 10 Hz print rate -- plenty to eyeball on the console */
+    HAL_Delay(100);
 
     /* USER CODE END WHILE */
 
