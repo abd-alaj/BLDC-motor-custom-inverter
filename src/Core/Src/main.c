@@ -39,7 +39,12 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define POT_ADC_MAX        	4095.0f
 
+// calculating Freq hz ===> mechanical rpm * pole pairs / 60
+#define FREQ_MIN_HZ         5.0f
+#define FREQ_MAX_HZ			85.6f  			// nominal RPM is
+#define TIM1_CLOCK_HZ    	168000000.0f 	//set by clock config in stm32, make sure to change if you change the clock speed
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -50,12 +55,20 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
+// absolute motor encoder resolver
 AS5048A_HandleTypeDef encoder1;
+
+//speed control input potentiometer
+volatile uint16_t pot_raw = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
+
+void UpdateSpeedFromPot(void);
 
 /* USER CODE END PFP */
 
@@ -100,10 +113,17 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+
+  // start the absolute encoder on the motor for feedback loop control
   AS5048A_Init(&encoder1, &hspi1, SPI1_CSn_GPIO_Port, SPI1_CSn_Pin);
   AS5048A_ClearErrorFlag(&encoder1, NULL);
 
+  //this starts up the potentiometer DMA, technically this could be a blocking function in the main loop, but why not free up the CPU for other shit?
+  // start the DMA for the potentiometer for speed control setting
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t*)&pot_raw, 1);
 
+  // this starts up the DMA's for the sine lookup tables
+  //each DMA on each channel corresponds to phase A, B, C
   HAL_StatusTypeDef dma_status;
 
   dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1,
@@ -160,7 +180,11 @@ int main(void)
       printf("AS5048A: SPI transfer failed (check wiring/CS pin)\r\n");
     }
 
+    UpdateSpeedFromPot();
+
     HAL_Delay(100);
+
+
 
     /* USER CODE END WHILE */
 
@@ -223,6 +247,25 @@ int _write(int file, char *ptr, int len)
     return len;
 }
 #endif
+
+void UpdateSpeedFromPot(void) {
+
+	float pot_frac = pot_raw / POT_ADC_MAX;
+	float target_freq_hz = FREQ_MIN_HZ + pot_frac * (FREQ_MAX_HZ - FREQ_MIN_HZ);
+	float update_rate_hz = target_freq_hz * LUT_SIZE;
+
+	//we basically are manipulating the prescalar value in TIM1 as a way to manipulate the speed in which we step through the LUT
+	uint32_t new_psc = (uint32_t)(TIM1_CLOCK_HZ /
+	                    (update_rate_hz * (htim1.Init.Period + 1) * 2)) - 1;
+
+	//if the register on the ADC is fucked up, just default to
+	if (new_psc > 655365) {
+		new_psc = 65535;
+	}
+
+	__HAL_TIM_SET_PRESCALER(&htim1, new_psc);
+}
+
 /* USER CODE END 4 */
 
 /**
