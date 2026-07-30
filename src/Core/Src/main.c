@@ -69,6 +69,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
 void UpdateSpeedFromPot(void);
+uint16_t get_pot_val(void);
 
 /* USER CODE END PFP */
 
@@ -126,16 +127,13 @@ int main(void)
   //each DMA on each channel corresponds to phase A, B, C
   HAL_StatusTypeDef dma_status;
 
-  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1,
-                                      (uint32_t*)sine_lut_a, LUT_SIZE);
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t*)sine_lut_a, LUT_SIZE);
   if (dma_status != HAL_OK) { Error_Handler(); }
 
-  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_2,
-                                      (uint32_t*)sine_lut_b, LUT_SIZE);
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_2, (uint32_t*)sine_lut_b, LUT_SIZE);
   if (dma_status != HAL_OK) { Error_Handler(); }
 
-  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_3,
-                                      (uint32_t*)sine_lut_c, LUT_SIZE);
+  dma_status = HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_3, (uint32_t*)sine_lut_c, LUT_SIZE);
   if (dma_status != HAL_OK) { Error_Handler(); }
 
   HAL_TIMEx_PWMN_Start(&htim1, TIM_CHANNEL_1);
@@ -163,6 +161,11 @@ int main(void)
 
   while (1)
   {
+
+
+
+
+	/*
     if (AS5048A_ReadAngle(&encoder1, &angle))
     {
       if (!angle.parity_ok)
@@ -179,8 +182,9 @@ int main(void)
     {
       printf("AS5048A: SPI transfer failed (check wiring/CS pin)\r\n");
     }
-
-    UpdateSpeedFromPot();
+	*/
+	//pot_raw = get_pot_val();
+    //UpdateSpeedFromPot();
 
     HAL_Delay(100);
 
@@ -248,6 +252,15 @@ int _write(int file, char *ptr, int len)
 }
 #endif
 
+uint16_t get_pot_val(void)
+{
+    HAL_ADC_Start(&hadc1);
+    HAL_ADC_PollForConversion(&hadc1, 10);
+    uint16_t val = HAL_ADC_GetValue(&hadc1);
+    HAL_ADC_Stop(&hadc1);
+    return val;
+}
+
 void UpdateSpeedFromPot(void) {
 
 	float pot_frac = pot_raw / POT_ADC_MAX;
@@ -259,7 +272,7 @@ void UpdateSpeedFromPot(void) {
 	                    (update_rate_hz * (htim1.Init.Period + 1) * 2)) - 1;
 
 	//if the register on the ADC is fucked up, just default to
-	if (new_psc > 655365) {
+	if (new_psc > 65535) {
 		new_psc = 65535;
 	}
 
